@@ -105,6 +105,8 @@ read_html,
 read_json,
 read_pickle,
 read_table,
+read_hdf,
+read_feather,
 rolling_apply,
 rolling_corr,
 rolling_corr_pairwise,
@@ -177,6 +179,7 @@ to_dict,
 to_excel,
 to_gbq,
 to_hdf,
+to_feather,
 to_html,
 to_json,
 to_msgpack,
@@ -192,7 +195,8 @@ tz_localize,
 unstack,
 var,
 weekday,
-read_sql
+read_sql,
+nunique
 
 if !isdefined(Base, :drop)
     export drop
