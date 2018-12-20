@@ -40,7 +40,7 @@ PyCall.PyObject(x::PandasWrapped) = x.pyo
 
 macro pytype(name, class)
     quote
-        struct $(name) <: PandasWrapped
+        mutable struct $(name) <: PandasWrapped
             pyo::PyObject
             $(esc(name))(pyo::PyObject) = new(pyo)
             function $(esc(name))(args...; kwargs...)
@@ -459,7 +459,7 @@ function Base.setindex!(df::DataFrame, v::Union{Series, AbstractArray}, cols)
     else
         df_merge = merge(df, df_set, left_index = true, right_index = true, copy = false)
     end
-    setfield!(df.pyo, :o, getfield(df_merge.pyo, :o))
+    df.pyo = df_merge.pyo
     return df
 end
 
