@@ -452,4 +452,15 @@ function Base.getproperty(x::Union{DataFrame, Series}, s::Symbol)
     end
 end
 
+function Base.setindex!(df::DataFrame, v::Union{Series, AbstractArray}, cols)
+    df_set = DataFrame(v, columns = isa(cols, String) ? [cols] : cols)
+    if isempty(df)
+        df_merge = df_set
+    else
+        df_merge = merge(df, df_set, left_index = true, right_index = true, copy = false)
+    end
+    setfield!(df.pyo, :o, getfield(df_merge.pyo, :o))
+    return df
+end
+
 end
