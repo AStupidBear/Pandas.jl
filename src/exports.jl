@@ -196,7 +196,8 @@ unstack,
 var,
 weekday,
 read_sql,
-nunique
+nunique,
+astype
 
 if !isdefined(Base, :drop)
     export drop

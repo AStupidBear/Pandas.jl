@@ -235,7 +235,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_html,
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
-:xs, :merge, :nunique)
+:xs, :merge, :nunique, :astype)
 pyattr_set([DataFrame], :groupby)
 pyattr_set([Series, DataFrame], :rolling)
 
