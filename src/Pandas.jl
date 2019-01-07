@@ -448,7 +448,7 @@ function Base.getproperty(x::Union{DataFrame, Series}, s::Symbol)
     if has_named_attr(named_index(x), s)
         return x[s]
     else
-        return getfield(x, s)
+        return getproperty(x.pyo, s)
     end
 end
 
