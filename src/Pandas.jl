@@ -109,6 +109,13 @@ fix_arg(x::UnitRange) = fix_arg(StepRange(x.start, 1, x.stop))
 fix_arg(x::Colon) = pybuiltin("slice")(nothing, nothing, nothing)
 fix_arg(x) = x
 
+struct StringRange{T <: AbstractString}
+    start::T
+    stop::T
+end
+(::Colon)(start::T, stop::T) where T <: AbstractString = StringRange{T}(start, stop)
+fix_arg(x::StringRange) = pybuiltin("slice")(x.start, x.stop)
+
 function fix_arg(x, offset)
     if offset
         fix_arg(x .- 1)
