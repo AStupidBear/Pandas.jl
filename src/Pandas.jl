@@ -238,7 +238,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :loc, :mean, :median, :min, :mode, :order, :pct_change, :pivot, :plot, :quantile,
 :rank, :reindex, :reindex_axis, :reindex_like, :rename, :reorder_levels,
 :replace, :resample, :reset_index, :sample, :select, :set_index, :shift, :skew,
-:sort, :sort_index, :sortlevel, :stack, :std, :sum, :swaplevel, :tail, :take,
+:sort, :sort_index, :sort_values, :sortlevel, :stack, :std, :sum, :swaplevel, :tail, :take,
 :to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_html,
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
@@ -454,6 +454,14 @@ function Base.getproperty(x::Union{DataFrame, Series}, s::Symbol)
     end
     if has_named_attr(named_index(x), s)
         return x[s]
+    else
+        return getproperty(x.pyo, s)
+    end
+end
+
+function Base.getproperty(x::PandasWrapped, s::Symbol)
+    if s == :pyo
+        return getfield(x, s)
     else
         return getproperty(x.pyo, s)
     end
