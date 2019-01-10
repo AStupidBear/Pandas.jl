@@ -239,7 +239,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :rank, :reindex, :reindex_axis, :reindex_like, :rename, :reorder_levels,
 :replace, :resample, :reset_index, :sample, :select, :set_index, :shift, :skew,
 :sort, :sort_index, :sort_values, :sortlevel, :stack, :std, :sum, :swaplevel, :tail, :take,
-:to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_html,
+:to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_parquet, :to_html,
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
 :xs, :merge, :nunique, :astype)
@@ -283,7 +283,7 @@ end
 Base.ndims(df::Union{DataFrame, Series}) = length(size(df))
 
 for m in [:read_pickle, :read_csv, :read_html, :read_json, :read_excel, :read_table, 
-    :read_hdf, :read_feather, :save, :stats,  :melt, :ewma, :concat, :pivot_table, :crosstab, :cut,
+    :read_hdf, :read_feather, :read_parquet, :save, :stats,  :melt, :ewma, :concat, :pivot_table, :crosstab, :cut,
     :qcut, :get_dummies, :resample, :date_range, :to_datetime, :to_timedelta,
     :bdate_range, :period_range, :ewmstd, :ewmvar, :ewmcorr, :ewmcov, :rolling_count,
     :expanding_count, :rolling_sum, :expanding_sum, :rolling_mean, :expanding_mean,
