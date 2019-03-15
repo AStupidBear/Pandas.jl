@@ -284,6 +284,7 @@ end
 @pyasvec Iloc
 @pyasvec DataFrame
 @pyasvec Index
+@pyasvec MultiIndex
 @pyasvec GroupBy
 @pyasvec Rolling
 
