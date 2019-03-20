@@ -86,7 +86,11 @@ function Base.values(x::PandasWrapped)
     x_kind = x.pyo.dtype.kind
     if x_kind in ["i", "u", "f", "b"]
         pyarray = convert(PyArray, x.pyo."values")
-        unsafe_wrap(Array, pyarray.data, size(pyarray))
+        if pyarray.f_contig
+            unsafe_wrap(Array, pyarray.data, size(pyarray))
+        else
+            Array(pyarray)
+        end
     else  # Convert element by element otherwise
         collect(x)
     end
