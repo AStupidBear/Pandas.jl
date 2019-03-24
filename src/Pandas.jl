@@ -460,23 +460,18 @@ end
 named_index(x::DataFrame) = columns(x)
 named_index(x::Series) = index(x)
 
-function Base.getproperty(x::Union{DataFrame, Series}, s::Union{Symbol, String})
+function Base.getproperty(x::PandasWrapped, s::Symbol)
     if s == :pyo
         return getfield(x, s)
     end
-    if has_named_attr(named_index(x), s)
+    if isa(x, Union{DataFrame, Series}) &&
+        has_named_attr(named_index(x), s)
         return x[s]
     else
         return getproperty(x.pyo, s)
     end
 end
 
-function Base.getproperty(x::PandasWrapped, s::Union{Symbol, String})
-    if s == :pyo
-        return getfield(x, s)
-    else
-        return getproperty(x.pyo, s)
-    end
-end
+Base.getproperty(x::PandasWrapped, s::String) = getproperty(x.pyo, s)
 
 end
