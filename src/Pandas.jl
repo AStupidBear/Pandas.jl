@@ -460,7 +460,7 @@ end
 named_index(x::DataFrame) = columns(x)
 named_index(x::Series) = index(x)
 
-function Base.getproperty(x::Union{DataFrame, Series}, s::Symbol)
+function Base.getproperty(x::Union{DataFrame, Series}, s::Union{Symbol, String})
     if s == :pyo
         return getfield(x, s)
     end
