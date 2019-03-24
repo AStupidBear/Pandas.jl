@@ -471,7 +471,7 @@ function Base.getproperty(x::Union{DataFrame, Series}, s::Symbol)
     end
 end
 
-function Base.getproperty(x::PandasWrapped, s::Symbol)
+function Base.getproperty(x::PandasWrapped, s::Union{Symbol, String})
     if s == :pyo
         return getfield(x, s)
     else
