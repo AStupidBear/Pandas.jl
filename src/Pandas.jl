@@ -11,7 +11,8 @@ import Base: getindex, setindex!, length, size, show, merge, convert,
  join, replace, lastindex, sum, abs, any, count,
  cumprod, cumsum, diff, filter, first, last,
  min, sort, truncate, +, -, *, /, !,
- ==, >, <, >=, <=, !=, &, |
+ ==, >, <, >=, <=, !=, &, |,
+ keys, close, get
 import Statistics: mean, std, var, cov, median, quantile
 
 
@@ -230,6 +231,7 @@ end
 @pytype GroupBy ()->pandas_raw.core.groupby."DataFrameGroupBy"
 @pytype SeriesGroupBy ()->pandas_raw.core.groupby."SeriesGroupBy"
 @pytype Rolling () -> pandas_raw.core.window."Rolling"
+@pytype HDFStore () -> pandas_raw.io.pytables.HDFStore
 
 @pyattr GroupBy app apply
 @pyattr Rolling app apply
@@ -256,6 +258,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :xs, :merge, :nunique, :astype)
 pyattr_set([DataFrame, Series], :groupby)
 pyattr_set([DataFrame, Series], :rolling)
+pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
 
 Base.size(x::Union{Loc, Iloc, Ix}) = x.pyo.obj.shape
 Base.size(df::PandasWrapped, i::Integer) = size(df)[i]
@@ -291,6 +294,7 @@ end
 @pyasvec MultiIndex
 @pyasvec GroupBy
 @pyasvec Rolling
+@pyasvec HDFStore
 
 Base.ndims(df::Union{DataFrame, Series}) = length(size(df))
 
@@ -305,7 +309,7 @@ for m in [:read_pickle, :read_csv, :read_html, :read_json, :read_excel, :read_ta
     :rolling_cov, :expanding_cov, :rolling_skew, :expanding_skew, :rolling_kurt,
     :expanding_kurt, :rolling_apply, :expanding_apply, :rolling_quantile,
     :expanding_quantile, :rolling_window, :to_numeric, :read_sql, :read_sql_table,
-    :read_sql_query]
+    :read_sql_query, :read_hdf]
     @eval begin
         function $m(args...; kwargs...)
             method = pandas_raw.$(string(m))

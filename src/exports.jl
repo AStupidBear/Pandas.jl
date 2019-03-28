@@ -106,7 +106,6 @@ read_html,
 read_json,
 read_pickle,
 read_table,
-read_hdf,
 read_feather,
 read_parquet,
 rolling_apply,
@@ -200,7 +199,12 @@ var,
 weekday,
 read_sql,
 nunique,
-astype
+astype,
+read_hdf,
+HDFStore,
+info,
+put,
+walk
 
 if !isdefined(Base, :drop)
     export drop
