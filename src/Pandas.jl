@@ -238,7 +238,7 @@ end
 @pyattr Rolling app apply
 
 pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :median,
-:var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count)
+:var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count, :shift)
 
 pyattr_set([Rolling], :agg, :aggregate, :apply, :corr, :count, :cov, :kurt, :max, :mean, :median, :min, :ndim, :quantile, :skew, :std, :sum, :validate, :var)
 
