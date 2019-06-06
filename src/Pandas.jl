@@ -28,6 +28,7 @@ function __init__()
     for (pandas_expr, julia_type) in pre_type_map
         type_map[pandas_expr()] = julia_type
     end
+    noconsolidation()
 end
 
 const pre_type_map = []
@@ -69,9 +70,12 @@ end
 
 quot(x) = Expr(:quote, x)
 
+
 function Base.Array(x::PandasWrapped)
+    ispydate(x) && return DateTime[xi for xi in x]
+    ispystr(x) && return String[xi for xi in x]
     c = np.asarray(x.pyo)
-    if typeof(c).parameters[1] == PyObject
+    if isa(c, PyObject)
         out = Array{Any}(undef, size(x))
         for idx in eachindex(out)
             out[idx] = convert(PyAny, c[idx])
@@ -478,5 +482,8 @@ function Base.getproperty(x::PandasWrapped, s::Symbol)
 end
 
 Base.getproperty(x::PandasWrapped, s::String) = getproperty(x.pyo, s)
+
+include("miscellaneous.jl")
+include("juno.jl")
 
 end
