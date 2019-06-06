@@ -28,7 +28,6 @@ function __init__()
     for (pandas_expr, julia_type) in pre_type_map
         type_map[pandas_expr()] = julia_type
     end
-    noconsolidation()
 end
 
 const pre_type_map = []

@@ -1,4 +1,4 @@
-export SparseDataFrame, pdhcat, pdvcat
+export SparseDataFrame, pdhcat, pdvcat, noconsolidation
 
 SparseDataFrame(args...; kws...) = DataFrame(pandas_raw.SparseDataFrame(args...; kws...))
 
