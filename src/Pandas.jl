@@ -304,7 +304,7 @@ end
 Base.ndims(df::Union{DataFrame, Series}) = length(size(df))
 
 for m in [:read_pickle, :read_csv, :read_html, :read_json, :read_excel, :read_table, 
-    :read_hdf, :read_feather, :read_parquet, :save, :stats,  :melt, :ewma, :concat, :pivot_table, :crosstab, :cut,
+    :read_feather, :read_parquet, :save, :stats,  :melt, :ewma, :concat, :pivot_table, :crosstab, :cut,
     :qcut, :get_dummies, :resample, :date_range, :to_datetime, :to_timedelta,
     :bdate_range, :period_range, :ewmstd, :ewmvar, :ewmcorr, :ewmcov, :rolling_count,
     :expanding_count, :rolling_sum, :expanding_sum, :rolling_mean, :expanding_mean,
