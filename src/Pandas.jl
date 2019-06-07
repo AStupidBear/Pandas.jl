@@ -93,7 +93,13 @@ function Base.values(x::PandasWrapped)
     if x_kind in ["i", "u", "f", "b"]
         pyarray = convert(PyArray, x.pyo."values")
         if pyarray.f_contig
-            unsafe_wrap(Array, pyarray.data, size(pyarray))
+            dims, T, ptr = size(pyarray), eltype(pyarray), pyarray.data
+            if Int(ptr) % Base.datatype_alignment(T) == 0
+                unsafe_wrap(Array, ptr, dims)
+            else
+                Aflat = unsafe_wrap(Array, Ptr{UInt8}(ptr), prod(dims) * sizeof(T))
+                A = reshape(reinterpret(T, Aflat), dims)
+            end
         else
             Array(pyarray)
         end
