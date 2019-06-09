@@ -264,9 +264,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_parquet, :to_html,
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
-:xs, :merge, :nunique, :astype, :round)
-pyattr_set([DataFrame, Series], :groupby)
-pyattr_set([DataFrame, Series], :rolling)
+:xs, :merge, :nunique, :astype, :round, :groupby, :rolling)
 pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
 pyattr_set([MultiIndex], :from_arrays, :from_product, :from_tuples, :from_frame)
 
