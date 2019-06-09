@@ -204,7 +204,12 @@ read_hdf,
 HDFStore,
 info,
 put,
-walk
+walk,
+CategoricalDtype,
+from_arrays,
+from_product,
+from_tuples,
+from_frame
 
 if !isdefined(Base, :drop)
     export drop

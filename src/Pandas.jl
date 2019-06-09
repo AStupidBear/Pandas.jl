@@ -243,6 +243,7 @@ end
 @pytype SeriesGroupBy ()->pandas_raw.core.groupby."SeriesGroupBy"
 @pytype Rolling () -> pandas_raw.core.window."Rolling"
 @pytype HDFStore () -> pandas_raw.io.pytables.HDFStore
+@pytyppe CategoricalDtype () -> pandas_raw."CategoricalDtype"
 
 pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :apply, :median,
 :var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count, :shift)
@@ -267,6 +268,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 pyattr_set([DataFrame, Series], :groupby)
 pyattr_set([DataFrame, Series], :rolling)
 pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
+pyattr_set([MultiIndex], :from_arrays, :from_product, :from_tuples, :from_frame)
 
 Base.size(x::Union{Loc, Iloc, Ix}) = x.pyo.obj.shape
 Base.size(df::PandasWrapped, i::Integer) = size(df)[i]
