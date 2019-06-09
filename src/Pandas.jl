@@ -244,10 +244,7 @@ end
 @pytype Rolling () -> pandas_raw.core.window."Rolling"
 @pytype HDFStore () -> pandas_raw.io.pytables.HDFStore
 
-@pyattr GroupBy app apply
-@pyattr Rolling app apply
-
-pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :median,
+pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :apply, :median,
 :var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count, :shift)
 
 pyattr_set([Rolling], :agg, :aggregate, :apply, :corr, :count, :cov, :kurt, :max, :mean, :median, :min, :ndim, :quantile, :skew, :std, :sum, :validate, :var)
