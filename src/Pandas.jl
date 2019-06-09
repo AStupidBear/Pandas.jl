@@ -266,7 +266,6 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
 :xs, :merge, :nunique, :astype, :round, :groupby, :rolling)
 pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
-pyattr_set([MultiIndex], :from_arrays, :from_product, :from_tuples, :from_frame)
 
 Base.size(x::Union{Loc, Iloc, Ix}) = x.pyo.obj.shape
 Base.size(df::PandasWrapped, i::Integer) = size(df)[i]
@@ -321,6 +320,16 @@ for m in [:read_pickle, :read_csv, :read_html, :read_json, :read_excel, :read_ta
     @eval begin
         function $m(args...; kwargs...)
             method = pandas_raw.$(string(m))
+            result = pycall(method, PyObject, args...; kwargs...)
+            pandas_wrap(result)
+        end
+    end
+end
+
+for m in [:from_arrays, :from_product, :from_tuples, :from_frame]
+    @eval begin
+        function $m(args...; kwargs...)
+            method = pandas_raw.MultiIndex.$(string(m))
             result = pycall(method, PyObject, args...; kwargs...)
             pandas_wrap(result)
         end
