@@ -277,15 +277,6 @@ Base.empty!(df::PandasWrapped) = df.pyo.drop(df.pyo.index, inplace=true)
 should_offset(::Any, args...) = false
 should_offset(::Union{Iloc, Index}, args...) = true
 
-function should_offset(s::Series, arg)
-    if eltype(arg) == Int64
-        if eltype(index(s)) ≠ Int64
-            return true
-        end
-    end
-    false
-end
-
 for attr in [:index, :columns]
     @eval function $attr(x::PandasWrapped)
         pandas_wrap(x.pyo.$(string(attr)))
