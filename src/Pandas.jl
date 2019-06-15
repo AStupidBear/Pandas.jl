@@ -28,6 +28,9 @@ function __init__()
     for (pandas_expr, julia_type) in pre_type_map
         type_map[pandas_expr()] = julia_type
     end
+    for (pytype, jltype) in type_map
+        PyCall.pytype_mapping(pytype, jltype)
+    end
     noconsolidation()
 end
 
@@ -63,6 +66,8 @@ macro pytype(name, class)
                 return pandas_wrap(value), state
             end
         end
+
+        Base.convert(::Type{$name}, o::PyObject) = $name(o)
 
         push!(pre_type_map, ($class, $name))
     end
