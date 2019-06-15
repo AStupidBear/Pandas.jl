@@ -209,7 +209,9 @@ CategoricalDtype,
 from_arrays,
 from_product,
 from_tuples,
-from_frame
+from_frame,
+np,
+pd
 
 if !isdefined(Base, :drop)
     export drop

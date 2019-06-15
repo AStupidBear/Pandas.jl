@@ -20,6 +20,7 @@ include("exports.jl")
 
 const np = PyNULL()
 const pandas_raw = PyNULL()
+const pd = pandas_raw
 
 function __init__()
     copy!(np, pyimport_conda("numpy", "numpy"))
