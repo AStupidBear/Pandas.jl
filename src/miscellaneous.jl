@@ -1,13 +1,4 @@
-export SparseDataFrame, pdhcat, pdvcat, noconsolidation
-
-SparseDataFrame(args...; kws...) = DataFrame(pandas_raw.SparseDataFrame(args...; kws...))
-
-function merge(df1::DataFrame, df2::DataFrame; kws...)
-    if occursin("Sparse", string(df1.pyo.__class__))
-        df1, df2 = df2, df1
-    end
-    pandas_wrap(pycall(df1.pyo.merge, PyObject, df2.pyo; kws...))
-end
+export pdhcat, pdvcat, noconsolidation
 
 Base.setindex!(df::DataFrame, v::AbstractArray, col::Union{Symbol, String}) = setindex!(df, v, [col])
 
