@@ -271,6 +271,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
 :xs, :merge, :nunique, :astype, :round, :groupby, :rolling)
+pyattr_set([Series], :value_counts)
 pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
 
 Base.size(x::Union{Loc, Iloc, Ix}) = x.pyo.obj.shape

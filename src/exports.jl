@@ -210,7 +210,8 @@ from_product,
 from_tuples,
 from_frame,
 np,
-pd
+pd,
+value_counts
 
 if !isdefined(Base, :drop)
     export drop
