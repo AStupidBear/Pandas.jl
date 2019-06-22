@@ -234,6 +234,7 @@ macro pyasvec(class)
         function $(esc(:lastindex))(x::$class)
             length(x)
         end
+        $(esc(:lastindex))(x::$class, i) = size(x, i)
     end
 end
 
