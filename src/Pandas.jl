@@ -248,8 +248,9 @@ end
 @pytype GroupBy ()->pandas_raw.core.groupby."DataFrameGroupBy"
 @pytype SeriesGroupBy ()->pandas_raw.core.groupby."SeriesGroupBy"
 @pytype Rolling () -> pandas_raw.core.window."Rolling"
-@pytype HDFStore () -> pandas_raw.io.pytables.HDFStore
+@pytype HDFStore () -> pandas_raw.io.pytables."HDFStore"
 @pytype CategoricalDtype () -> pandas_raw."CategoricalDtype"
+@pytype Grouper () -> pandas_raw.core.groupby."Grouper"
 
 pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :apply, :median,
 :var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count, :shift)

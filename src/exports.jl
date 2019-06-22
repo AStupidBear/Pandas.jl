@@ -211,7 +211,8 @@ from_tuples,
 from_frame,
 np,
 pd,
-value_counts
+value_counts,
+Grouper
 
 if !isdefined(Base, :drop)
     export drop
