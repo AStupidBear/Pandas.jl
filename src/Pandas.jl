@@ -12,7 +12,7 @@ import Base: getindex, setindex!, length, size, show, merge, convert,
  cumprod, cumsum, diff, filter, first, last,
  min, sort, truncate, +, -, *, /, !,
  ==, >, <, >=, <=, !=, &, |,
- keys, close, get, round
+ keys, close, get, round, max, min
 import Statistics: mean, std, var, cov, median, quantile
 
 
@@ -270,7 +270,7 @@ pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof
 :to_clipboard, :to_csv, :to_dense, :to_dict, :to_excel, :to_gbq, :to_hdf, :to_feather, :to_parquet, :to_html,
 :to_json, :to_latex, :to_msgpack, :to_panel, :to_pickle, :to_records, :to_sparse,
 :to_sql, :to_string, :truncate, :tz_conert, :tz_localize, :unstack, :var, :weekday,
-:xs, :merge, :nunique, :astype, :round, :groupby, :rolling)
+:xs, :merge, :nunique, :astype, :round, :groupby, :rolling, :max, :min)
 pyattr_set([Series], :value_counts)
 pyattr_set([HDFStore], :put, :append, :get, :select, :info, :keys, :groups, :walk, :close)
 
