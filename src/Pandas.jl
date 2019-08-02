@@ -32,7 +32,9 @@ function __init__()
     for (pytype, jltype) in type_map
         PyCall.pytype_mapping(pytype, jltype)
     end
-    noconsolidation()
+    if get(ENV, "CONSOLIDATION", "false") == "false"
+        noconsolidation()
+    end
 end
 
 const pre_type_map = []
