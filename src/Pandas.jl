@@ -156,6 +156,8 @@ function fix_arg(x, offset)
 end
 
 fix_arg(x::Colon, offset) = pybuiltin("slice")(nothing, nothing, nothing)
+fix_arg(x::Union{PyObject, PandasWrapped}, offset) = fix_arg(x)
+fix_arg(x::AbstractArray{<:Bool}, offset) = fix_arg(x)
 
 pyattr(class, method) = pyattr(class, method, method)
 
