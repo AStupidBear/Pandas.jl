@@ -259,8 +259,6 @@ pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :apply, :med
 
 pyattr_set([Rolling], :agg, :aggregate, :apply, :corr, :count, :cov, :kurt, :max, :mean, :median, :min, :ndim, :quantile, :skew, :std, :sum, :validate, :var)
 
-@pyattr GroupBy siz size
-
 pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof,
 :boxplot, :clip, :clip_lower, :clip_upper, :corr, :corrwith, :count, :cov,
 :cummax, :cummin, :cumprod, :cumsum, :delevel, :describe, :diff, :drop,
