@@ -32,7 +32,9 @@ function __init__()
     for (pytype, jltype) in type_map
         PyCall.pytype_mapping(pytype, jltype)
     end
-    noconsolidation()
+    if get(ENV, "CONSOLIDATION", "false") == "false"
+        noconsolidation()
+    end
 end
 
 const pre_type_map = []
@@ -154,6 +156,8 @@ function fix_arg(x, offset)
 end
 
 fix_arg(x::Colon, offset) = pybuiltin("slice")(nothing, nothing, nothing)
+fix_arg(x::Union{PyObject, PandasWrapped}, offset) = fix_arg(x)
+fix_arg(x::AbstractArray{<:Bool}, offset) = fix_arg(x)
 
 pyattr(class, method) = pyattr(class, method, method)
 
@@ -256,8 +260,6 @@ pyattr_set([GroupBy, SeriesGroupBy], :mean, :std, :agg, :aggregate, :apply, :med
 :var, :ohlc, :transform, :groups, :indices, :get_group, :hist,  :plot, :count, :shift)
 
 pyattr_set([Rolling], :agg, :aggregate, :apply, :corr, :count, :cov, :kurt, :max, :mean, :median, :min, :ndim, :quantile, :skew, :std, :sum, :validate, :var)
-
-@pyattr GroupBy siz size
 
 pyattr_set([DataFrame, Series], :T, :abs, :align, :any, :argsort, :asfreq, :asof,
 :boxplot, :clip, :clip_lower, :clip_upper, :corr, :corrwith, :count, :cov,
