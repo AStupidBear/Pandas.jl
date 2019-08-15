@@ -16,7 +16,6 @@ function Base.show(io::IO, ::MIME"application/prs.juno.plotpane+html", tbl::JTab
 end
 
 function Base.open(tbl::JTable)
-    df = round(tbl.data, 3)
     csv = joinpath(homedir(), ".cache/jtable.csv")
     to_csv(df, csv, encoding = "gbk")
     Atom.msg("openFile", csv)
