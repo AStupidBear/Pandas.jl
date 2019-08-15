@@ -17,6 +17,6 @@ end
 
 function Base.open(tbl::JTable)
     csv = joinpath(homedir(), ".cache/jtable.csv")
-    to_csv(df, csv, encoding = "gbk")
+    to_csv(tbl.data, csv, encoding = "gbk")
     Atom.msg("openFile", csv)
 end
