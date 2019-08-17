@@ -32,6 +32,10 @@ function __init__()
     for (pytype, jltype) in type_map
         PyCall.pytype_mapping(pytype, jltype)
     end
+    PyCall.pytype_mapping(np.float32, Float32)
+    PyCall.pytype_mapping(np.float64, Float64)
+    PyCall.pytype_mapping(np.int32, Int32)
+    PyCall.pytype_mapping(np.int64, Int64)
     if get(ENV, "CONSOLIDATION", "false") == "false"
         noconsolidation()
     end
