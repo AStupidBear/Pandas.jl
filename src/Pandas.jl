@@ -289,7 +289,7 @@ Base.isempty(df::PandasWrapped) = df.pyo.empty
 Base.empty!(df::PandasWrapped) = df.pyo.drop(df.pyo.index, inplace=true)
 
 should_offset(::Any, args...) = false
-should_offset(::Union{Iloc, Index}, args...) = true
+should_offset(::Union{Iloc, Index, MultiIndex}, args...) = true
 
 for attr in [:index, :columns]
     @eval function $attr(x::PandasWrapped)
@@ -479,7 +479,7 @@ function DataFrame(obj)
     end
 end
 
-function has_named_attr(x::Index, s)
+function has_named_attr(x::Union{Index, MultiIndex}, s)
     return x.pyo.__contains__(Symbol(s))
 end
 
