@@ -6,6 +6,7 @@ using Lazy
 using Compat
 using TableTraits
 using Statistics
+using Dates
 
 import Base: getindex, setindex!, length, size, show, merge, convert,
  join, replace, lastindex, sum, abs, any, count,
