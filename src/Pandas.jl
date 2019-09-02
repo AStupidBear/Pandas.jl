@@ -501,6 +501,14 @@ end
 
 Base.getproperty(x::PandasWrapped, s::String) = getproperty(x.pyo, s)
 
+function Base.setproperty!(x::PandasWrapped, s::Symbol, v)
+    if s == :pyo
+        return setfield!(x, s, v)
+    else
+        setproperty!(x.pyo, s, v)
+    end
+end
+
 include("miscellaneous.jl")
 include("juno.jl")
 
