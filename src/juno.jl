@@ -1,4 +1,4 @@
-using Atom, BrowseTables
+using Random, Atom
 
 export JTable
 
@@ -16,7 +16,8 @@ function Base.show(io::IO, ::MIME"application/prs.juno.plotpane+html", tbl::JTab
 end
 
 function Base.open(tbl::JTable)
-    csv = joinpath(homedir(), ".cache/jtable.csv")
-    to_csv(tbl.data, csv, encoding = "gbk")
+    csv = randstring() * ".csv"
+    tbl.data.to_csv(csv, encoding = "gbk")
+    finalizer(x -> rm(csv), tbl)
     Atom.msg("openFile", csv)
 end

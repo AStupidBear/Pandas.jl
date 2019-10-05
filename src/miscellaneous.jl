@@ -20,32 +20,23 @@ function pdhcat(dfs...)
     dfs = filter(!isempty, collect(dfs))
     df = dfs[1]
     for dfn in dfs[2:end]
-        df = merge(df, dfn, left_index = true, right_index = true, copy = false)
+        df = pd.merge(df, dfn, left_index = true, right_index = true, copy = false)
     end
     return df
 end
 
-pdvcat(xs...) = concat([xs...], axis = 0, ignore_index = true)
-
-Base.ndims(x::Iloc) = length(size(x))
-Base.view(x::Iloc, is...) = getindex(x, is...)
+pdvcat(xs...) = pd.concat([xs...], axis = 0, ignore_index = true)
 
 function noconsolidation()
     py"""
-    def _consolidate_inplace(self):
-        pass
+def _consolidate_inplace(self):
+    pass
 
-    def _consolidate(self):
-        return self.blocks
+def _consolidate(self):
+    return self.blocks
 
-    from pandas.core.internals import BlockManager
-    BlockManager._consolidate_inplace = _consolidate_inplace
-    BlockManager._consolidate = _consolidate
-    """
+from pandas.core.internals import BlockManager
+BlockManager._consolidate_inplace = _consolidate_inplace
+BlockManager._consolidate = _consolidate
+"""
 end
-
-ispydate(x) = false
-ispystr(x) = false
-
-ispydate(x::Series) = occursin("datetime", string(x.pyo.dtype.type))
-ispystr(x::Series) = isa(iloc(x)[1], String)

@@ -1,15 +1,13 @@
 using Pandas
+using Dates
 using Test
 
-df = DataFrame(Dict(:name=>["a", "b"], :age=>[27, 30]))
+df = pd.DataFrame(Dict(:name => ["a", "b"], :age => [27, 30]))
 age = values(df.age)
 age[2] = 31
-@test loc(df)[1, "age"] == 31
+@test df.loc[1, "age"] == 31
 
-query(df, :(age!=27))  # Issue #26
-
-df = read_csv(joinpath(dirname(@__FILE__), "test.csv"))
-typeof(df)
+df = pd.read_csv(joinpath(dirname(@__FILE__), "test.csv"))
 @test isa(df, Pandas.DataFrame)
 
 include("test_tabletraits.jl")
@@ -18,29 +16,27 @@ include("test_tabletraits.jl")
 empty!(df)
 @test isempty(df)
 
-x = Series([3,5], index=[:a, :b])
+x = pd.Series([3, 5], index = [:a, :b])
 
 @test x.a == 3
-@test x[:a] == 3
-@test loc(x)[:a] == 3
+@test x["a"] == 3
+@test x.loc["a"] == 3
 @test x.b == 5
-@test iloc(x)[1] == 3
-@test iloc(x)[2] == 5
+@test x.iloc[1] == 3
+@test x.iloc[2] == 5
 @test length(x) == 2
-@test values(x+1) == [4, 6]
-@test sum(x) == 8
+@test values(x + 1) == [4, 6]
+@test x.sum() == 8
 @test eltype(x) == Int64
-@test all(iloc(x)[1:2]==x)
+@test all(x.iloc[1:2] == x)
 
-# Rolling
-roll = rolling(Series([1,2,3,4,5]), 3)
-@test isequal(values(mean(roll)), [NaN, NaN, 2.0, 3.0, 4.0])
+df = pd.DataFrame()
+df["a"] = [1]
+df["b"] = pd.to_datetime("2015-01-01")
+df["c"] = pd.to_timedelta("0.5 hour")
+df["d"] = "abcde"
 
-# HDF
-mktempdir() do dir
-    store = HDFStore("$(dir)/store.h5")
-    x = Series(["a", "b"])
-    store["x"] = x
-    x_fromstore = store["x"]
-    @test values(x_fromstore) == ["a", "b"]
-end
+@test Array(df["a"]) == values(df["a"]) == [1]
+@test Array(df["b"]) == values(df["b"]) == [DateTime(2015, 1, 1)]
+@test Array(df["c"]) == values(df["c"]) == [Millisecond(1800000)]
+@test Array(df["d"]) == values(df["d"]) == ["abcde"]
