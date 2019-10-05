@@ -33,7 +33,6 @@ docker run -it malmaud/julia_pandas
 
 Usage
 ---------
-In general, if ``df`` is a Pandas object (such as a dataframe or series), then the Python command ``df.x(y, w=z)`` becomes ``x(df, y, w=z)`` in Julia. ``df.loc[a,b,c]`` becomes ``loc(df)[a,b,c]`` (same for ``iloc`` and ``ix``). Example:
 
 ```julia
 >> using Pandas
@@ -44,7 +43,7 @@ In general, if ``df`` is a Pandas object (such as a dataframe or series), then t
 2   27   Jake
 
 [3 rows x 2 columns]
->> describe(df)
+>> df.describe()
              age
 count   3.000000
 mean   27.666667
@@ -64,7 +63,7 @@ df[:age]
 Name: age, dtype: int64
 
 >> df2 = DataFrame(Dict(:income=>[45, 101, 87]), index=["Jake", "James", "Jill"])
->> df3 = merge(df, df2, left_on="name", right_index=true)
+>> df3 = df.merge(df2, left_on="name", right_index=true)
    age   name  income
 0   27  James     101
 1   29   Jill      87
@@ -72,14 +71,14 @@ Name: age, dtype: int64
 
 [3 rows x 3 columns]
 
->> iloc(df3)[1:2, 2:3]
+>> df3.iloc[1:2, 2:3]
     name  income
 0  James     101
 1   Jill      87
 
 [2 rows x 2 columns]
 
->> mean(groupby(df3, "age")) #Or groupby(df, "age3") |> mean
+>> df3.groupby("age").mean()
      income
 age
 27       73
@@ -87,7 +86,7 @@ age
 
 [2 rows x 1 columns]
 
->> query(df3, :(income>85)) # or query(df3, "income>85")
+>> df3.query("income>85")
    age   name  income
 0   27  James     101
 1   29   Jill      87
@@ -100,15 +99,15 @@ age
  29  "Jill"    87
  27  "Jake"    45
 
- >> plot(df3)
+ >> df3.plot()
 ```
 
 Input/Output
 -------------
 Example:
 ```julia
-df = read_csv("my_csv_file.csv") # Read in a CSV file as a dataframe
-to_json(df, "my_json_file.json") # Save a dataframe to disk in JSON format
+df = pd.read_csv("my_csv_file.csv") # Read in a CSV file as a dataframe
+df.to_json("my_json_file.json") # Save a dataframe to disk in JSON format
 ```
 
 Performance
@@ -131,10 +130,10 @@ elapsed time: 2.689e-6 seconds (64 bytes allocated)
 
 Changes to the values(...) array propogate back to the underlying series/dataframe:
 ```julia
->> iloc(x_series)[1]
+>> x_series.iloc[1]
 -0.38390854447454037
 >> x_values[1] = 10
->> iloc(x_series)[1]
+>> x_series.iloc[1]
 10
 ```
 

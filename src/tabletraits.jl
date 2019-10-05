@@ -8,7 +8,7 @@ TableTraits.isiterabletable(x::DataFrame) = true
 function TableTraits.getiterator(df::DataFrame)
     col_names_raw = [c for c in df.columns]
     col_names = Symbol.(col_names_raw)
-    column_data = [eltype(df[c]) == String ? [df[c].iloc[j] for j in 1:length(df)] : values(df[i]) for c in col_names_raw]
+    column_data = [eltype(df[c]) == String ? [df[c].iloc[j] for j in 1:length(df)] : values(df[c]) for c in col_names_raw]
     return create_tableiterator(column_data, col_names)
 end
 
