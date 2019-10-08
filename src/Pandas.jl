@@ -151,8 +151,8 @@ macro pyasvec(class)
     quote
         $index_expr
         $length_expr
-        $(esc(:lastindex))(x::$class) = length(x)
-        $(esc(:lastindex))(x::$class, i) = size(x, i)
+        Base.lastindex(x::$class) = length(x)
+        Base.lastindex(x::$class, i) = size(x, i)
     end
 end
 
