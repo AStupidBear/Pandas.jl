@@ -8,7 +8,7 @@ function Base.setindex!(df::DataFrame, v::AbstractArray, cols)
         df.pyo = df_merge.pyo
     elseif size(v, 1) == length(df) && !issubset(cols, df.columns)
         df_set = DataFrame(v, copy = false, columns = cols, index = df.index)
-        df_merge = merge(df, df_set, left_index = true, right_index = true, copy = false)
+        df_merge = df.merge(df_set, left_index = true, right_index = true, copy = false)
         df.pyo = df_merge.pyo
     else
         df[cols] = DataFrame(v)
@@ -20,7 +20,7 @@ function pdhcat(dfs...)
     dfs = filter(!isempty, collect(dfs))
     df = dfs[1]
     for dfn in dfs[2:end]
-        df = pd.merge(df, dfn, left_index = true, right_index = true, copy = false)
+        df = df.merge(dfn, left_index = true, right_index = true, copy = false)
     end
     return df
 end
