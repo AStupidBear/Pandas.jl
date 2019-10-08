@@ -6,8 +6,8 @@ function Base.setindex!(df::DataFrame, v::AbstractArray, cols)
     if isempty(df)
         df_merge = DataFrame(v, copy = false, columns = cols)
         df.pyo = df_merge.pyo
-    elseif size(v, 1) == length(df) && !issubset(cols, columns(df))
-        df_set = DataFrame(v, copy = false, columns = cols, index = index(df))
+    elseif size(v, 1) == length(df) && !issubset(cols, df.columns)
+        df_set = DataFrame(v, copy = false, columns = cols, index = df.index)
         df_merge = merge(df, df_set, left_index = true, right_index = true, copy = false)
         df.pyo = df_merge.pyo
     else
