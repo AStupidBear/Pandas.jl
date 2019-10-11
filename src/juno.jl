@@ -2,7 +2,7 @@ using Random, Atom
 
 export JTable
 
-struct JTable
+mutable struct JTable
     data
 end
 
@@ -16,7 +16,7 @@ function Base.show(io::IO, ::MIME"application/prs.juno.plotpane+html", tbl::JTab
 end
 
 function Base.open(tbl::JTable)
-    csv = randstring() * ".csv"
+    csv = joinpath(homedir(), ".cache", randstring() * ".csv")
     tbl.data.to_csv(csv, encoding = "gbk")
     finalizer(x -> rm(csv), tbl)
     Atom.msg("openFile", csv)
